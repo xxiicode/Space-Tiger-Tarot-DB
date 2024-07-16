@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { collection, getDocs, query, terminate, where } from 'firebase/firestore';
 import { db } from '../assets/Connection/firebaseConfig';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { CardDetailComponent } from './CardDetailComponent';
 
 export const SearchPage = () => {
     const [searchParams, setSearchParams] = useState({
@@ -23,10 +25,10 @@ export const SearchPage = () => {
 
     const capitalizeFirstLetterOfWords = (string) => {
         return string.split(' ')
-                     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                     .join(' ');
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
     };
-    
+
     const handleSearch = async (e) => {
         e.preventDefault();
         const cardsCollection = collection(db, 'Cards');
@@ -65,24 +67,31 @@ export const SearchPage = () => {
         // Ejecutamos la consulta
         const querySnapshot = await getDocs(q);
 
-            // Log de los datos de cada documento
-    querySnapshot.forEach(doc => {
-        console.log('Card Data:', doc.data());
-    });
+        const storage = getStorage();
+        const resultsWithImageUrls = await Promise.all(
+            querySnapshot.docs.map(async (doc) => {
+                const data = doc.data();
+                const imageUrl = await getDownloadURL(ref(storage, data.imageUrl));
+                return { ...data, id: doc.id, imageUrl };
+            })
+        );
 
-        // Filtrar resultados
-        const filteredResults = querySnapshot.docs
-            .map(doc => ({ ...doc.data(), id: doc.id }))
-            .filter(card => {
-                // Si se está buscando por nombre de carta, comparamos exactamente con la versión capitalizada
-                if (searchParams.cardName) {
-                    return card.cardName === capitalizedCardName;
-                }
-                // Aquí puedes agregar lógica para otros filtros si es necesario
-                return true;
-            });
 
-        setResults(filteredResults);
+        setResults(resultsWithImageUrls);
+    };
+
+    const handleReset = () => {
+        setSearchParams({
+            cardName: '',
+            cardNumber: '',
+            element: '',
+            zodiac: '',
+            planet: '',
+            suit: '',
+            theme: '',
+            keyword: ''
+        });
+        setResults([]);
     };
 
     return (
@@ -196,23 +205,14 @@ export const SearchPage = () => {
                     </label>
                 </div>
                 <div>
+                    <button type="button" onClick={handleReset}>Reset</button>
                     <button type="submit">Search</button>
                 </div>
             </form>
-            <div>
+            <div className="cardResult">
                 {results.length > 0 ? (
                     results.map((card) => (
-                        <div key={card.id}>
-                            <h2>{card.cardName}</h2>
-                            <p>{card.cardNumber}</p>
-                            <p>{card.arcana}</p>
-                            <p>{card.element}</p>
-                            <p>{card.zodiac.join(', ')}</p>
-                            <p>{card.planet}</p>
-                            <p>{card.theme.join(', ')}</p>
-                            <p>{card.keyword.join(', ')}</p>
-                            <img src={`https://firebasestorage.googleapis.com/v0/b/YOUR_PROJECT_ID.appspot.com/o/${card.imageUrl}?alt=media`} alt={card.cardName} />
-                        </div>
+                        <CardDetailComponent key={card.id} tarotCard={card} />
                     ))
                 ) : (
                     <p>No results found</p>

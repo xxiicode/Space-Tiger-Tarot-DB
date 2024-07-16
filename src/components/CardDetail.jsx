@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../assets/Connection/firebaseConfig.js";
+import { CardDetailComponent } from './CardDetailComponent';
 
 export const CardDetail = () => {
     const { id } = useParams();
@@ -28,18 +29,6 @@ export const CardDetail = () => {
     }
 
     return (
-        <div className="card-detail">
-            <h1>{card.cardName}</h1>
-            <img src={card.imageUrl} alt={card.cardName} />
-            <p><strong>Card Name:</strong> {card.cardName}</p>
-            <p><strong>Number:</strong> {card.cardNumber}</p>
-            <p><strong>Arcana:</strong> {card.arcana}</p>
-            {card.arcana === 'Minor Arcana' && <p><strong>Suit:</strong> {card.suit}</p>}
-            <p><strong>Element:</strong> {card.element}</p>
-            <p><strong>Zodiac:</strong> {card.zodiac.join(', ')}</p>
-            <p><strong>Planet:</strong> {card.planet}</p>
-            <p><strong>Theme:</strong> {card.theme.join(', ')}</p>
-            <p><strong>Keyword:</strong> {card.keyword.join(', ')}</p>
-        </div>
+        <CardDetailComponent key={card.id} tarotCard={card} />
     );
 };

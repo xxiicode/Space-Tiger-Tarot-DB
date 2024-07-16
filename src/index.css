@@ -52,7 +52,7 @@ a.card img {
     margin: 0 auto;
 }
 
-.card-detail img {
+.card-detail img,  .cardResult img {
     max-width: 500px;
 }
 
