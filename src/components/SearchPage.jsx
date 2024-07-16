@@ -54,12 +54,12 @@ export const SearchPage = () => {
             q = query(q, where('suit', '==', searchParams.suit));
         }
         if (searchParams.theme) {
-            const lowerCaseTheme = searchParams.theme.toLowerCase();
-            q = query(q, where('theme', 'array-contains', lowerCaseTheme));
+            const capitalizedTheme = capitalizeFirstLetterOfWords(searchParams.theme);
+            q = query(q, where('theme', 'array-contains', capitalizedTheme));
         }
         if (searchParams.keyword) {
-            const lowerCaseKeyword = searchParams.keyword.toLowerCase();
-            q = query(q, where('keyword', 'array-contains', lowerCaseKeyword));
+            const capitalizedKeyword = capitalizeFirstLetterOfWords(searchParams.keyword);
+            q = query(q, where('keyword', 'array-contains', capitalizedKeyword));
         }
 
         // Ejecutamos la consulta
