@@ -55,9 +55,9 @@ export const CreateCardForm = () => {
 
             // Si arcana es 'Minor Arcana', agrega el suit; de lo contrario, deja suit vacío.
             if (formData.arcana === 'Minor Arcana') {
-                cardData.suit = formData.suit;
+                formData.suit = formData.suit;
             } else {
-                cardData.suit = '';
+                formData.suit = '';
             }
 
             // Agregar los datos del formulario a Firestore
@@ -247,7 +247,7 @@ export const CreateCardForm = () => {
                 </div>
                 <br />
                 <div>
-                    <button class="btn btn-light" type="submit">Create Card</button>
+                    <button className="btn btn-light" type="submit">Create Card</button>
                 </div>
             </form>
         </div>
