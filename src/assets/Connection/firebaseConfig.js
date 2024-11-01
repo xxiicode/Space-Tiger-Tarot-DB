@@ -8,7 +8,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCMQjpdWzef_zYtzDUXXb_MkQ1DSeOge3Y",
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
   authDomain: "space-tiger-tarot-db.firebaseapp.com",
   projectId: "space-tiger-tarot-db",
   storageBucket: "space-tiger-tarot-db.appspot.com",
