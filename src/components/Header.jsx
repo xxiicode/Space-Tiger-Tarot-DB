@@ -16,6 +16,7 @@ export const Header = () => {
   };
 
   return (
+    <>
     <header>
       <strong>Space Tiger Tarot <span>Database</span></strong>
       <nav>
@@ -26,12 +27,14 @@ export const Header = () => {
           <li><Link to="/admin">Admin</Link></li>
         </ul>
       </nav>
+      </header>
       {user && (
         <div className="user-info">
           Usuario: {user.email}
           <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
       )}
-    </header>
+    
+    </>
   );
 };
