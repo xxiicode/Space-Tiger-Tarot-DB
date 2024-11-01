@@ -53,6 +53,7 @@ a.card img {
 }
 
 .card-detail img,  .cardResult img {
+    width: 100%;
     max-width: 500px;
 }
 
@@ -60,4 +61,5 @@ a.card img {
     display: flex;
     gap: 20px;
     justify-content: center;
+    flex-wrap: wrap;
 }

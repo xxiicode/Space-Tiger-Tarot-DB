@@ -31,7 +31,7 @@ export const Header = () => {
       {user && (
         <div className="user-info">
           Usuario: {user.email}
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button onClick={handleLogout} className="">Logout</button>
         </div>
       )}
     
