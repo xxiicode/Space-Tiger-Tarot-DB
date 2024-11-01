@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { getStorage, ref, uploadBytes } from '@firebase/Storage';
-import { getFirestore, collection, addDoc } from '@firebase/firestore';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { db } from "../assets/Connection/firebaseConfig.js"
 /* Sweet Alert */
 import Swal from "sweetalert2";
