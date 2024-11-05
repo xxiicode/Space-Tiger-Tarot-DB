@@ -67,7 +67,7 @@ export const CardsDB = () => {
 
     return (
         <>
-            <div className="container">
+            <div className="container-fluid p-3 py-5 bg-terciary">
                 <h1>Tarot Cards DataBase</h1>
                 <div className="col">
                     <div className="row">
@@ -94,7 +94,7 @@ export const CardsDB = () => {
                                         <td>{card.planet}</td>
                                         <td>{Array.isArray(card.theme) ? card.theme.join(', ') : card.theme}</td>
                                         <td>{card.keyword}</td>
-                                        <td><Link to={`edit/${card.id}`} className="btn btn-light">
+                                        <td><Link to={`edit/${card.id}`} className="btn btn-light me-2">
                                             <i className="fa-solid fa-pen-to-square"></i>
                                         </Link>
                                             <button

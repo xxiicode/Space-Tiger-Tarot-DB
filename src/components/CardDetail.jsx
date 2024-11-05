@@ -29,6 +29,11 @@ export const CardDetail = () => {
     }
 
     return (
+        <>
         <CardDetailComponent key={card.id} tarotCard={card} />
+        <div className="d-flex justify-content-center">
+        <a className="btn btn-primary justify-content-end" href="/library">Back to Library</a>
+        </div>
+        </>
     );
 };

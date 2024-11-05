@@ -6,7 +6,7 @@ export const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <p>Cargando...</p>; // Puedes mostrar un spinner o un mensaje de carga
+    return <p className='text-center mt-5'>cargando...</p>
   }
 
   if (!user) {
