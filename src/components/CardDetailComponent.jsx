@@ -1,5 +1,4 @@
 export const CardDetailComponent = ({ tarotCard }) => {
-
     return (
         <div className="container-fluid mt-4">
             <div className="card-detail" key={tarotCard.id}>

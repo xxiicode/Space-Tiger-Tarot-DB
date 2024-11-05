@@ -55,7 +55,7 @@ export const CreateCardForm = () => {
 
         const storage = getStorage();
         const fileName = `${formData.cardNumber}_${formData.cardName.replace(/\s+/g, '-')}.webp`;
-        const storageRef = ref(storage, `Cards/${fileName}`);
+        const storageRef = ref(storage, `${fileName}`);
 
 
         try {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../assets/Connection/firebaseConfig.js";
 import { CardDetailComponent } from './CardDetailComponent';
 
@@ -14,8 +13,7 @@ export const CardDetail = () => {
         const cardData = await getDoc(cardDoc);
         if (cardData.exists()) {
             const data = cardData.data();
-            const storage = getStorage();
-            const imageUrl = await getDownloadURL(ref(storage, data.imageUrl));
+            const imageUrl = `https://spacetiger9.imgix.net/${data.imageUrl}?w=500`;
             setCard({ ...data, imageUrl });
         }
     };

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { db } from "../assets/Connection/firebaseConfig.js";
 
 export const Library = () => {
@@ -14,9 +13,7 @@ export const Library = () => {
         const cardsWithImageUrls = await Promise.all(
             data.docs.map(async (doc) => {
                 const cardData = doc.data();
-                const storage = getStorage();
-                const imageUrl = await getDownloadURL(ref(storage, cardData.imageUrl));
-                const imgixUrl = `https://spacetiger.imgix.net/${cardData.imageUrl}?w=212`;
+                const imgixUrl = `https://spacetiger9.imgix.net/${cardData.imageUrl}?w=150`;
                 return { ...cardData, id: doc.id, imageUrl: imgixUrl };
             })
         );
