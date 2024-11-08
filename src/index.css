@@ -2,6 +2,7 @@
     --accent-color: red;
     --terciary-color: #212529;
     --bs-link-color: #e883b5;
+    --bs-link-color-rgb: 232, 131, 181;
 }
 
 body {
@@ -10,7 +11,12 @@ body {
     box-sizing: border-box;
     min-width: 100%;
 }
-
+ a {
+    color: #e883b5 !important;
+    &:hover {
+        color: #e883b5 !important;
+    }
+ }
 .bg-terciary {
     background-color: var(--terciary-color);
 }
@@ -38,7 +44,9 @@ td {
         max-height: 70vh;
     }
 }
-
+.card {
+box-shadow: 0px -1px 12px 6px rgb(68 11 30 / 59%)
+}
 /* a {
     color: inherit;
 }
