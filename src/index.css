@@ -33,7 +33,7 @@ td {
     vertical-align: middle;
 }
 
-.library .img-fluid {
+.library .img-fluid, .card-result .img-fluid {
     aspect-ratio: 83 / 146;
 }
 

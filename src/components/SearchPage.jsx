@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import { collection, getDocs, query, terminate, where } from 'firebase/firestore';
 import { db } from '../assets/Connection/firebaseConfig';
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { CardDetailComponent } from './CardDetailComponent';
+
 
 export const SearchPage = () => {
     const [searchParams, setSearchParams] = useState({
@@ -29,8 +29,24 @@ export const SearchPage = () => {
             .join(' ');
     };
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleSearch = async (e) => {
         e.preventDefault();
+
+        // Verifica si al menos un campo tiene un valor
+        const hasSearchParams = Object.values(searchParams).some((value) => value);
+
+        if (!hasSearchParams) {
+            // Si no hay ningún parámetro seleccionado, muestra un mensaje de error y termina la función
+            setErrorMessage('No search criteria selected.');
+            return;
+        }
+
+        // Si hay al menos un campo, borra el mensaje de error y continúa con la búsqueda
+        setErrorMessage('');
+
+
         const cardsCollection = collection(db, 'Cards');
 
         let q = cardsCollection;
@@ -66,11 +82,10 @@ export const SearchPage = () => {
 
         const querySnapshot = await getDocs(q);
 
-        const storage = getStorage();
         const resultsWithImageUrls = await Promise.all(
             querySnapshot.docs.map(async (doc) => {
                 const data = doc.data();
-                const imageUrl = await getDownloadURL(ref(storage, data.imageUrl));
+                const imageUrl = `https://spacetiger9.imgix.net/${data.imageUrl}?w=150`;
                 return { ...data, id: doc.id, imageUrl };
             })
         );
@@ -113,7 +128,7 @@ export const SearchPage = () => {
                             <label>Card Name:</label>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
                             <select className='form-select' id="cardNumber" name="cardNumber" value={searchParams.cardNumber} onChange={handleChange}>
                                 <option value="">Select number</option>
@@ -128,8 +143,8 @@ export const SearchPage = () => {
                     </div>
                 </div>
 
-                <div className='row'>
-                    <div className="col-lg-4">
+                <div className='row justify-content-center'>
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
 
                             <select className='form-select' id="element" name="element" value={searchParams.element} onChange={handleChange}>
@@ -143,7 +158,7 @@ export const SearchPage = () => {
                         </div>
                     </div>
 
-                    <div className="col-lg-4">
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
                             <select className='form-select' id='zodiac' name="zodiac" value={searchParams.zodiac} onChange={handleChange}>
                                 <option value="">All Zodiac Signs</option>
@@ -164,7 +179,7 @@ export const SearchPage = () => {
                         </div>
                     </div>
 
-                    <div className="col-lg-4">
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
                             <select className='form-select' id='planet' name="planet" value={searchParams.planet} onChange={handleChange}>
                                 <option value="">All Planets</option>
@@ -185,8 +200,8 @@ export const SearchPage = () => {
                     </div>
                 </div>
 
-                <div className='row'>
-                    <div className="col-lg-4">
+                <div className='row justify-content-center'>
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
                             <select className='form-select' id='suit' name="suit" value={searchParams.suit} onChange={handleChange}>
                                 <option value="">All Suits</option>
@@ -198,7 +213,7 @@ export const SearchPage = () => {
                             <label>Suit:</label>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
 
                             <input
@@ -213,7 +228,7 @@ export const SearchPage = () => {
                             <label>Theme:</label>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-2">
                         <div className='form-floating mb-3'>
 
                             <input
@@ -238,10 +253,16 @@ export const SearchPage = () => {
                     </div>
                 </div>
             </form>
-            <div className="cardResult">
+
+            <div className="card-result row row-cols-auto mt-5 ">
+                {errorMessage && <p className='text-center mt-3 text-danger'>{errorMessage}</p>}
                 {results.length > 0 ? (
                     results.map((card) => (
-                        <CardDetailComponent key={card.id} tarotCard={card} />
+                        <div>
+                        <Link to={`/card-detail/${card.id}`} key={card.id} className="col w-100 h-100">
+                            <img className="img-fluid" src={card.imageUrl} alt={card.cardName} />
+                        </Link>
+                        </div>
                     ))
                 ) : (
                     <p className='text-center mt-5'> No results found</p>
