@@ -64,7 +64,6 @@ export const SearchPage = () => {
             q = query(q, where('keyword', 'array-contains', capitalizedKeyword));
         }
 
-        // Ejecutamos la consulta
         const querySnapshot = await getDocs(q);
 
         const storage = getStorage();
@@ -95,118 +94,148 @@ export const SearchPage = () => {
     };
 
     return (
-        <div>
-            <h1>Search for Tarot Cards</h1>
-            <form onSubmit={handleSearch}>
-                <div>
-                    <label>
-                        Card Name:
-                        <input
-                            type="text"
-                            name="cardName"
-                            value={searchParams.cardName}
-                            onChange={handleChange}
-                            placeholder="Enter card name"
-                        />
-                    </label>
+        <div className='container p-3 py-5'>
+            <h1 className='text-center mb-5'>Search for Tarot Cards</h1>
+            <form className='justify-content-center' onSubmit={handleSearch}>
+                <div className='row justify-content-center'>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
 
-                    <label>
-                        Card Number:
-                        <select name="cardNumber" value={searchParams.cardNumber} onChange={handleChange}>
-                            <option value="">Select number</option>
-                            {[...Array(22).keys()].map((number) => (
-                                <option key={number} value={number}>
-                                    {number}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Element:
-                        <select name="element" value={searchParams.element} onChange={handleChange}>
-                            <option value="">All Elements</option>
-                            <option value="Air">Air</option>
-                            <option value="Earth">Earth</option>
-                            <option value="Fire">Fire</option>
-                            <option value="Water">Water</option>
-                        </select>
-                    </label>
-
-                    <label>
-                        Zodiac:
-                        <select name="zodiac" value={searchParams.zodiac} onChange={handleChange}>
-                            <option value="">All Zodiac Signs</option>
-                            <option value="Aries">Aries</option>
-                            <option value="Taurus">Taurus</option>
-                            <option value="Gemini">Gemini</option>
-                            <option value="Cancer">Cancer</option>
-                            <option value="Leo">Leo</option>
-                            <option value="Virgo">Virgo</option>
-                            <option value="Libra">Libra</option>
-                            <option value="Scorpio">Scorpio</option>
-                            <option value="Sagittarius">Sagittarius</option>
-                            <option value="Capricorn">Capricorn</option>
-                            <option value="Aquarius">Aquarius</option>
-                            <option value="Pisces">Pisces</option>
-                        </select>
-                    </label>
+                            <input
+                                className='form-control'
+                                id="cardName"
+                                type="text"
+                                name="cardName"
+                                value={searchParams.cardName}
+                                onChange={handleChange}
+                                placeholder="Enter card name"
+                            />
+                            <label>Card Name:</label>
+                        </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
+                            <select className='form-select' id="cardNumber" name="cardNumber" value={searchParams.cardNumber} onChange={handleChange}>
+                                <option value="">Select number</option>
+                                {[...Array(22).keys()].map((number) => (
+                                    <option key={number} value={number}>
+                                        {number}
+                                    </option>
+                                ))}
+                            </select>
+                            <label>Card Number:</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label>
-                        Planet:
-                        <select name="planet" value={searchParams.planet} onChange={handleChange}>
-                            <option value="">All Planets</option>
-                            <option value="Mercury">Mercury</option>
-                            <option value="Venus">Venus</option>
-                            <option value="Earth">Earth</option>
-                            <option value="Mars">Mars</option>
-                            <option value="Jupiter">Jupiter</option>
-                            <option value="Saturn">Saturn</option>
-                            <option value="Uranus">Uranus</option>
-                            <option value="Neptune">Neptune</option>
-                            <option value="Pluto">Pluto</option>
-                            <option value="Moon">Moon</option>
-                            <option value="Sun">Sun</option>
-                        </select>
-                    </label>
 
-                    <label>
-                        Suit:
-                        <select name="suit" value={searchParams.suit} onChange={handleChange}>
-                            <option value="">All Suits</option>
-                            <option value="Wands">Wands</option>
-                            <option value="Swords">Swords</option>
-                            <option value="Cups">Cups</option>
-                            <option value="Pentacles">Pentacles</option>
-                        </select>
-                    </label>
+                <div className='row'>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
 
-                    <label>
-                        Theme:
-                        <input
-                            type="text"
-                            name="theme"
-                            value={searchParams.theme}
-                            onChange={handleChange}
-                            placeholder="Enter theme"
-                        />
-                    </label>
+                            <select className='form-select' id="element" name="element" value={searchParams.element} onChange={handleChange}>
+                                <option value="">All Elements</option>
+                                <option value="Air">Air</option>
+                                <option value="Earth">Earth</option>
+                                <option value="Fire">Fire</option>
+                                <option value="Water">Water</option>
+                            </select>
+                            <label>Element:</label>
+                        </div>
+                    </div>
 
-                    <label>
-                        Keyword/Theme:
-                        <input
-                            type="text"
-                            name="keyword"
-                            value={searchParams.keyword}
-                            onChange={handleChange}
-                            placeholder="Enter keyword or theme"
-                        />
-                    </label>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
+                            <select className='form-select' id='zodiac' name="zodiac" value={searchParams.zodiac} onChange={handleChange}>
+                                <option value="">All Zodiac Signs</option>
+                                <option value="Aries">Aries</option>
+                                <option value="Taurus">Taurus</option>
+                                <option value="Gemini">Gemini</option>
+                                <option value="Cancer">Cancer</option>
+                                <option value="Leo">Leo</option>
+                                <option value="Virgo">Virgo</option>
+                                <option value="Libra">Libra</option>
+                                <option value="Scorpio">Scorpio</option>
+                                <option value="Sagittarius">Sagittarius</option>
+                                <option value="Capricorn">Capricorn</option>
+                                <option value="Aquarius">Aquarius</option>
+                                <option value="Pisces">Pisces</option>
+                            </select>
+                            <label>Zodiac:</label>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
+                            <select className='form-select' id='planet' name="planet" value={searchParams.planet} onChange={handleChange}>
+                                <option value="">All Planets</option>
+                                <option value="Mercury">Mercury</option>
+                                <option value="Venus">Venus</option>
+                                <option value="Earth">Earth</option>
+                                <option value="Mars">Mars</option>
+                                <option value="Jupiter">Jupiter</option>
+                                <option value="Saturn">Saturn</option>
+                                <option value="Uranus">Uranus</option>
+                                <option value="Neptune">Neptune</option>
+                                <option value="Pluto">Pluto</option>
+                                <option value="Moon">Moon</option>
+                                <option value="Sun">Sun</option>
+                            </select>
+                            <label>Planet:</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" onClick={handleReset}>Reset</button>
-                    <button type="submit">Search</button>
+
+                <div className='row'>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
+                            <select className='form-select' id='suit' name="suit" value={searchParams.suit} onChange={handleChange}>
+                                <option value="">All Suits</option>
+                                <option value="Wands">Wands</option>
+                                <option value="Swords">Swords</option>
+                                <option value="Cups">Cups</option>
+                                <option value="Pentacles">Pentacles</option>
+                            </select>
+                            <label>Suit:</label>
+                        </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
+
+                            <input
+                                className='form-control'
+                                id='theme'
+                                type="text"
+                                name="theme"
+                                value={searchParams.theme}
+                                onChange={handleChange}
+                                placeholder="Enter theme"
+                            />
+                            <label>Theme:</label>
+                        </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <div className='form-floating mb-3'>
+
+                            <input
+                                className='form-control'
+                                id='keyword'
+                                type="text"
+                                name="keyword"
+                                value={searchParams.keyword}
+                                onChange={handleChange}
+                                placeholder="Enter keyword or theme"
+                            />
+                            <label>Keyword/Theme:</label>
+                        </div>
+                    </div>
+                </div>
+                <div className='row row-cols-2 justify-content-center'>
+                    <div className='col-1'>
+                        <button className='btn btn-light' type="button" onClick={handleReset}>Reset</button>
+                    </div>
+                    <div className='col-1'>
+                        <button className='btn btn-primary' type="submit">Search</button>
+                    </div>
                 </div>
             </form>
             <div className="cardResult">
@@ -215,7 +244,7 @@ export const SearchPage = () => {
                         <CardDetailComponent key={card.id} tarotCard={card} />
                     ))
                 ) : (
-                    <p>No results found</p>
+                    <p className='text-center mt-5'> No results found</p>
                 )}
             </div>
         </div>
