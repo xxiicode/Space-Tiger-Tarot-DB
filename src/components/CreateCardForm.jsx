@@ -55,10 +55,11 @@ export const CreateCardForm = () => {
 
         const storage = getStorage();
         const fileName = `${formData.cardNumber}_${formData.cardName.replace(/\s+/g, '-')}.webp`;
-        const storageRef = ref(storage, `${fileName}`);
+        const storageRef = ref(storage, `Cards/${fileName}`);
 
 
         try {
+            console.log('File to upload:', formData.imageFile);
             await uploadBytes(storageRef, formData.imageFile);
             console.log('file updated correctly');
 
@@ -111,7 +112,12 @@ export const CreateCardForm = () => {
             });
             imageInputRef.current.value = '';
         } catch (error) {
-            console.error('Error uploading image', error);
+            console.error('Error uploading data:', error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was a problem saving the card. Please try again.'
+            });
         }
     };
 
