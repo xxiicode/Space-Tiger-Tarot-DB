@@ -86,7 +86,7 @@ export const CreateCardForm = () => {
                 planet: formData.planet,
                 theme: themes,
                 keyword: keywords,
-                imageUrl: `Cards/${fileName}`
+                imageUrl: `/${fileName}`
             });
             Swal.fire({
                 position: "center",
