@@ -1,51 +1,52 @@
 :root {
-    --accent-color: red;
-    --terciary-color: #212529;
-    --bs-link-color: #e883b5;
-    --bs-link-color-rgb: 232, 131, 181;
+  --accent-color: red;
+  --terciary-color: #212529;
+  --bs-link-color: #e883b5;
+  --bs-link-color-rgb: 232, 131, 181;
 }
 
 body {
-    background-color: black;
-    margin: 0px;
-    box-sizing: border-box;
-    min-width: 100%;
+  background-color: black;
+  margin: 0px;
+  box-sizing: border-box;
+  min-width: 100%;
 }
- a {
+a {
+  color: #e883b5 !important;
+  &:hover {
     color: #e883b5 !important;
-    &:hover {
-        color: #e883b5 !important;
-    }
- }
+  }
+}
 .bg-terciary {
-    background-color: var(--terciary-color);
+  background-color: var(--terciary-color);
 }
 
 .bg-accent {
-    background-color: var(--accent-color);
+  background-color: var(--accent-color);
 }
 
 .text-accent {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
-.library .img-fluid, .card-result .img-fluid {
-    aspect-ratio: 83 / 146;
+.library .img-fluid,
+.card-result .img-fluid {
+  aspect-ratio: 83 / 146;
 }
 
-.card-detail div:has(>.img-fluid) {
-    justify-self: flex-end;
+.card-detail div:has(> .img-fluid) {
+  justify-self: flex-end;
 
-    & img {
-        max-height: 70vh;
-    }
+  & img {
+    max-height: 70vh;
+  }
 }
 .card {
-box-shadow: 0px -1px 12px 6px rgb(68 11 30 / 59%)
+  box-shadow: 0px -1px 12px 6px rgb(68 11 30 / 59%);
 }
 /* a {
     color: inherit;
